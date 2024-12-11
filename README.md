@@ -154,13 +154,7 @@ Refer to the [Checkout Documentation](https://onchainkit.xyz/checkout/checkout) 
 
 ## **Evernode Deployment**
 
-1. **Login to Docker Hub:**
-
-   ```bash
-   docker login
-   ```
-
-2. **Submit Docker Image to Evernode Host:**
+1. **Submit Docker Image to Evernode Host:**
 
    - Open an Evernode web interface from the list of live test hosts:
      - [https://evernode1.zerp.network/](https://evernode1.zerp.network/) (x4)
@@ -179,7 +173,7 @@ Refer to the [Checkout Documentation](https://onchainkit.xyz/checkout/checkout) 
 
    - Enter any required moments for testing deployment.
 
-3. **Monitor Deployment:**
+2. **Monitor Deployment:**
 
    - Allow time for the Evernode host to update and deploy your Docker image.
    - Monitor the deployment logs for progress.

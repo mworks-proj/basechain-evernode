@@ -171,7 +171,7 @@ Refer to the [Checkout Documentation](https://onchainkit.xyz/checkout/checkout) 
      your-dockerhub-username/basechain-evernode-commerce-kit:latest
      ```
 
-   - Enter any required moments for testing deployment.
+   - Payment Instruction: Calculate the required moments based on hosting time. If the instance price is 0.10 $evr per moment/hour and you need 2 hours, send 0.10 $evr x 2 = 0.20 $evr.
 
 2. **Monitor Deployment:**
 

@@ -10,11 +10,12 @@ Welcome to the Basechain Evernode Commerce Kit deployment guide! This document w
 4. [Environment Variables](#environment-variables)
 5. [Enabling Checkout](#enabling-checkout)
 6. [Docker Deployment](#docker-deployment)
-7. [Evernode Deployment](#evernode-deployment)
-8. [Testing and Verification](#testing-and-verification)
-9. [Security Best Practices](#security-best-practices)
-10. [Support and Contributions](#support-and-contributions)
-11. [License](#license)
+7. [Docker Secrets Setup](#docker-secrets-setup)
+8. [Evernode Deployment](#evernode-deployment)
+9. [Testing and Verification](#testing-and-verification)
+10. [Security Best Practices](#security-best-practices)
+11. [Support and Contributions](#support-and-contributions)
+12. [License](#license)
 
 ---
 
@@ -45,8 +46,8 @@ Additionally, you need the following API keys and accounts:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME.git
-   cd YOUR_REPO_NAME
+   git clone https://github.com/mworks-proj/basechain-evernode
+   cd basechain-evernode
    ```
 
 2. Install dependencies:
@@ -119,6 +120,38 @@ Refer to the [Checkout Documentation](https://onchainkit.xyz/checkout/checkout) 
 
 ---
 
+## **Docker Secrets Setup**
+
+1. Initialize Docker Swarm if not already done:
+
+   ```bash
+   docker swarm init
+   ```
+
+2. Create Docker secrets for environment variables:
+
+   ```bash
+   echo "YOUR_COINBASE_API_KEY" | docker secret create coinbase_api_key -
+   echo "YOUR_GOOGLE_ANALYTICS_ID" | docker secret create google_analytics_id -
+   echo "YOUR_ONCHAINKIT_API_KEY" | docker secret create onchainkit_api_key -
+   echo "https://YOUR_CUSTOM_STORE_URL" | docker secret create environment_url -
+   ```
+
+3. Deploy the Docker service with secrets:
+
+   ```bash
+   docker service create \
+     --name basechain-evernode-commerce-kit \
+     --secret source=coinbase_api_key,target=coinbase_api_key \
+     --secret source=google_analytics_id,target=google_analytics_id \
+     --secret source=onchainkit_api_key,target=onchainkit_api_key \
+     --secret source=environment_url,target=environment_url \
+     -p 3000:3000 \
+     your-dockerhub-username/basechain-evernode-commerce-kit:latest
+   ```
+
+---
+
 ## **Evernode Deployment**
 
 1. **Login to Docker Hub:**
@@ -144,7 +177,7 @@ Refer to the [Checkout Documentation](https://onchainkit.xyz/checkout/checkout) 
      your-dockerhub-username/basechain-evernode-commerce-kit:latest
      ```
 
-   - Enter any required moments for testing deployment. Example: If your instance pricing is `0.1 EVR/hour` and you choose `2 moments`, you'll need to pay `0.2 EVR`.
+   - Enter any required moments for testing deployment.
 
 3. **Monitor Deployment:**
 
@@ -176,14 +209,6 @@ Refer to the [Checkout Documentation](https://onchainkit.xyz/checkout/checkout) 
 ## **Support and Contributions**
 
 We welcome contributions! Feel free to submit issues, pull requests, or suggestions.
-
-If you encounter deployment issues, check:
-
-- Docker logs
-- Evernode deployment logs
-- Environment variable correctness
-
-Happy deploying!
 
 ---
 
